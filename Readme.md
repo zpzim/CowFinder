@@ -1,8 +1,8 @@
-Where's Waldo
+Cow Finder
 =============
-The goal of this project is to sucesfully identify waldo in any Where is Waldo image using datamining techniques. The key components of this project are as follows.
+The goal of this project is to sucesfully identify cows in any airial image using datamining techniques. The key components of this project are as follows.
 
-  - Create a classifier that finds waldo in large images
+  - Create a classifier that finds cows in large images
   - Evaluate the algorithm with ROC curves
   - Write a report
  
