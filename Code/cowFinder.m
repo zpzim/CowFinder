@@ -1,16 +1,16 @@
 
 
-function [I] = hw3(X)
+function [I] = cowFinder(X)
 
-    redThresholds = [175 225
-                     0    25 
-                     230  255];
+    redThresholds = [165 226
+                     0   75 
+                     245  256];
     greenThresholds = [ 115 165
-                        0    25
-                        230  255];
+                        0   60 
+                        230  256];
     blueThresholds = [50 95
-                      0   25
-                      230 255];
+                      0  50 
+                      190 256];
 
 
     I = imread(X);
@@ -34,7 +34,7 @@ function [I] = hw3(X)
         blueMatch = or(blueMatch, match);
     end
     I2 = and(and(redMatch, greenMatch), blueMatch);
-    disp(I2)
+    %disp(I2)
     I3 = I;
     for i =  1:size(I,1)
         for j = 1:size(I,2)

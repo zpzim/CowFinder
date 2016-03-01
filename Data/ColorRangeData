@@ -1,0 +1,66 @@
+// Brown cow colors
+
+// Set 1
+R: 233
+G: 156
+B: 86
+
+// Set 2
+R: 221
+G: 164
+B: 93
+
+// Set 3
+R: 180
+G: 119
+B: 72
+
+// Set 4
+R: 187
+G: 118
+B: 53
+
+// Set 5
+R: 167
+G: 115
+B: 57
+
+// White cow colors 
+
+// Set 1
+R: 255
+G: 247
+B: 254
+
+// Set 2
+R: 255
+G: 232
+B: 193
+
+// Set 3
+R: 255
+G: 246
+B: 216
+
+// Set 4
+R: 255
+G: 247
+B: 217
+
+// Black cow colors 
+
+// Set 1
+R: 47
+G: 40
+B: 32
+
+// Set 2
+R: 61
+G: 49
+B: 49
+
+// Set 3
+R: 70
+G: 57
+B: 49
+
