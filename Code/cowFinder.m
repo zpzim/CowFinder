@@ -1,6 +1,6 @@
 
 
-function [I] = cowFinder(X)
+function [Z] = cowFinder(X)
 
     redThresholds = [165 226
                      5   75 
@@ -38,7 +38,7 @@ function [I] = cowFinder(X)
 	matchBlack = and(matchBlackR,and(matchBlackG,matchBlackB));
 
 	x = x+1;
-
+   
 	% Find White Matches
 	matchWhiteR = and(red >= redThresholds(x,1), red <= redThresholds(x,2));
 	matchWhiteG = and(green >= greenThresholds(x,1), green <= greenThresholds(x,2));
@@ -46,14 +46,35 @@ function [I] = cowFinder(X)
 	matchWhite = and(matchWhiteR,and(matchWhiteG,matchWhiteB));
 
     I2 = or(or(matchWhite, matchBlack), matchBrown);
-
     I3 = I;
+    thresh = 10;
+    Gx = int32(size(I,1) / 16);
+    Gy = int32(size(I,2) / 16);
+    
+    ret = zeros(Gx,Gy);
     for i =  1:size(I,1)
         for j = 1:size(I,2)
             if I2(i,j)
                 I3(i,j,:) = [0 0 255];
+                z = int32(i / Gx) + 1;
+                zz = int32(j / Gy) + 1;
+                ret(z,zz) = ret(z,zz) + 1;  
             end
         end
     end
+    
+    ret2 = ret < thresh;
+    for i =  1:size(I,1)
+        z = int32(i / Gx) + 1;
+        for j = 1:size(I,2)
+            zz = int32(j / Gy) + 1;
+            if ret2(z,zz)
+                I3(i,j,:) = [255 0 0]; 
+            end
+        end
+    end
+        
     image(I3)
+    Z = ret;
+    disp(Z);
 end
