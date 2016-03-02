@@ -3,14 +3,14 @@
 function [I] = cowFinder(X)
 
     redThresholds = [165 226
-                     0   75 
-                     245  256];
+                     5   75 
+                     230  255];
     greenThresholds = [ 115 165
-                        0   60 
-                        230  256];
+                        15   60 
+                        210  255];
     blueThresholds = [50 95
-                      0  50 
-                      190 256];
+                      15  50 
+                      160 255];
 
 
     I = imread(X);
@@ -21,20 +21,32 @@ function [I] = cowFinder(X)
     greenMatch = redMatch;
     blueMatch = redMatch;
 
-    for x = 1:3
-        match = and(red > redThresholds(x,1), red < redThresholds(x,2));
-        redMatch = or(redMatch, match);
-    end
-    for x = 1:3
-        match = and(green > greenThresholds(x,1), green < greenThresholds(x,2));
-        greenMatch = or(greenMatch, match);
-    end
-    for x = 1:3
-        match = and(blue > blueThresholds(x,1), blue < blueThresholds(x,2));
-        blueMatch = or(blueMatch, match);
-    end
-    I2 = and(and(redMatch, greenMatch), blueMatch);
-    %disp(I2)
+	x = 1;
+
+	% Find Brown Matches
+	matchBrownR = and(red >= redThresholds(x,1), red <= redThresholds(x,2));
+	matchBrownG = and(green >= greenThresholds(x,1), green <= greenThresholds(x,2));
+	matchBrownB = and(blue >= blueThresholds(x,1), blue <= blueThresholds(x,2));
+	matchBrown = and(matchBrownR,and(matchBrownG,matchBrownB));
+
+	x = x+1;
+
+	% Find Black Matches
+	matchBlackR = and(red >= redThresholds(x,1), red <= redThresholds(x,2));
+	matchBlackG = and(green >= greenThresholds(x,1), green <= greenThresholds(x,2));
+	matchBlackB = and(blue >= blueThresholds(x,1), blue <= blueThresholds(x,2));
+	matchBlack = and(matchBlackR,and(matchBlackG,matchBlackB));
+
+	x = x+1;
+
+	% Find White Matches
+	matchWhiteR = and(red >= redThresholds(x,1), red <= redThresholds(x,2));
+	matchWhiteG = and(green >= greenThresholds(x,1), green <= greenThresholds(x,2));
+	matchWhiteB = and(blue >= blueThresholds(x,1), blue <= blueThresholds(x,2));
+	matchWhite = and(matchWhiteR,and(matchWhiteG,matchWhiteB));
+
+    I2 = or(or(matchWhite, matchBlack), matchBrown);
+
     I3 = I;
     for i =  1:size(I,1)
         for j = 1:size(I,2)
