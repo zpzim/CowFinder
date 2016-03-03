@@ -1,3 +1,4 @@
+!["Cover Image](Images/CoverImage.jpg)
 Cow Finder
 =============
 The goal of this project is to sucesfully identify cows in any airial image using datamining techniques. The key components of this project are as follows.
