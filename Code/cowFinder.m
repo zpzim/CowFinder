@@ -1,7 +1,6 @@
 
 
-function [Z] = cowFinder(X)
-
+function [Z] = cowFinder(X, thresh)
     redThresholds = [165 226
                      5   75 
                      230  255];
@@ -45,36 +44,58 @@ function [Z] = cowFinder(X)
 	matchWhiteB = and(blue >= blueThresholds(x,1), blue <= blueThresholds(x,2));
 	matchWhite = and(matchWhiteR,and(matchWhiteG,matchWhiteB));
 
-    I2 = or(or(matchWhite, matchBlack), matchBrown);
-    I3 = I;
-    thresh = 10;
-    Gx = int32(size(I,1) / 16);
-    Gy = int32(size(I,2) / 16);
+    CowFound = or(or(matchWhite, matchBlack), matchBrown);
+    ModImage = I;
+    Gx = floor(size(I,1) / 16);
+    Gy = floor(size(I,2) / 16);
+    
+    
     
     ret = zeros(Gx,Gy);
     for i =  1:size(I,1)
+        blkI = floor(i / Gx) + 1;
         for j = 1:size(I,2)
-            if I2(i,j)
-                I3(i,j,:) = [0 0 255];
-                z = int32(i / Gx) + 1;
-                zz = int32(j / Gy) + 1;
-                ret(z,zz) = ret(z,zz) + 1;  
+            if CowFound(i,j)
+                ModImage(i,j,:) = [0 0 255];
+                blkJ = floor(j / Gy) + 1;
+                ret(blkI,blkJ) = ret(blkI,blkJ) + 1;  
             end
         end
     end
     
-    ret2 = ret < thresh;
+    retMeetThresh = ret < thresh;
     for i =  1:size(I,1)
-        z = int32(i / Gx) + 1;
+        blkI = floor(i / Gx) + 1;
         for j = 1:size(I,2)
-            zz = int32(j / Gy) + 1;
-            if ret2(z,zz)
-                I3(i,j,:) = [255 0 0]; 
+            blkJ = floor(j / Gy) + 1;
+            if retMeetThresh(blkI,blkJ)
+                ModImage(i,j,:) = [255 0 0]; 
             end
         end
     end
-        
-    image(I3)
+    WithGrid = cowGrid(ModImage,16,16);
+    image(WithGrid)
     Z = ret;
-    disp(Z);
 end
+
+function [I] = cowGrid(I, x, y)
+    Gx = floor(size(I,1) / x);
+    Gy = floor(size(I,2) / y);
+    disp(Gx)
+    disp(Gy)
+    for i = 1:size(I,1)
+        for j = 1:size(I,2)
+            if(mod(i,Gx) == 0)
+                I(i,j,:) = [0, 0, 0];
+                I(i+1,j,:) = [0,0,0];
+                I(i - 1, j, : ) = [0,0,0];
+            end
+            if(mod(j,Gy) == 0)
+                I(i,j,:) = [0, 0, 0];
+                I(i,j+1,:) = [0,0,0];
+                I(i,j-1, : ) = [0,0,0];
+            end
+        end
+    end
+end
+
