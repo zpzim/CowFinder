@@ -11,8 +11,10 @@ Report
 ------------
 Link: https://docs.google.com/document/d/1gx65E14Ts43-IrGvkxc12u1dDmNxFzNBRwTpX6R1rOc/edit?usp=sharing
  
-Matlab example code
+Matlab example code 
 --------------------
+
+For grabbing pixel color data...
 
 EDU>>imdata=imread('cows1.jpg');
 EDU>>image(imdata)
