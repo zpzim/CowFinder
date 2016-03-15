@@ -9,8 +9,7 @@ The goal of this project is to sucesfully identify cows in any airial image usin
 
 Report
 ------------
-Link: https://docs.google.com/document/d/1gx65E14Ts43-IrGvkxc12u1dDmNxFzNBRwTpX6R1rOc/edit?usp=sharing
- 
+Link: https://docs.google.com/document/d/1yukI7TaVj26Yoqio4-v_Q5i3SPvLtgWsvp9o-KeD808/edit?usp=sharing 
 Matlab example code 
 --------------------
 
