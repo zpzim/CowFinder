@@ -1,4 +1,4 @@
-!["Cover Image](Images/CoverImage.jpg =250x)
+<img src="Images/CoverImage.jpg" width="150">
 Cow Finder
 =============
 The goal of this project is to sucesfully identify cows in any airial image using datamining techniques. The key components of this project are as follows.
@@ -28,6 +28,5 @@ EDU>>green=imdata(round(x),round(y),2);
 EDU>>blue=imdata(round(x),round(y),3);
 EDU>>figure;
 EDU>>patch(px,py,double([red green blue])/255)
-
 
 
